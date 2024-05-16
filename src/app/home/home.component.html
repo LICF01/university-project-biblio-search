@@ -1,4 +1,16 @@
 <div class="column gap-1">
+  <p-toolbar>
+    <div class="p-toolbar-group-center">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          placeholder="Buscar"
+          (keydown.enter)="onSearchSubmit($event)"
+        />
+      </span>
+    </div>
+  </p-toolbar>
   <!-- book list -->
   <div class="column gap-1">
     @for (book of books; track book.title) {
@@ -11,5 +23,6 @@
     [totalRecords]="totalItems"
     [rowsPerPageOptions]="[5, 10, 20]"
     (onPageChange)="onPageChange($event)"
+    [pageLinkSize]="totalPages"
   />
 </div>

@@ -43,7 +43,7 @@ export interface Books {
   total: number;
   page: number;
   perPage: number;
-  totaPages: number;
+  totalPages: number;
 }
 
 export interface PaginationParams {
@@ -54,4 +54,5 @@ export interface PaginationParams {
     | ReadonlyArray<string | number | boolean>;
   page: number;
   perPage: number;
+  searchValue: string;
 }
