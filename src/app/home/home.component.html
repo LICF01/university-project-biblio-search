@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div class="column gap-1">
+  <!-- book list -->
+  <div class="column gap-1">
+    @for (book of books; track book.title) {
+      <app-book [book]="book" />
+    }
+  </div>
+
+  <p-paginator
+    [rows]="itemsPerPage"
+    [totalRecords]="totalItems"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    (onPageChange)="onPageChange($event)"
+  />
+</div>
