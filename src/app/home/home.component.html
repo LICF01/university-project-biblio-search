@@ -1,28 +1,26 @@
 <div class="column gap-1">
-  <p-toolbar>
-    <div class="p-toolbar-group-center">
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          placeholder="Buscar"
-          (keydown.enter)="onSearchSubmit($event)"
-        />
-      </span>
-    </div>
-  </p-toolbar>
-  <!-- book list -->
-  <div class="column gap-1">
-    @for (book of books; track book.title) {
-      <app-book [book]="book" />
-    }
-  </div>
-
-  <p-paginator
+  <p-dataView
+    #dv
+    [value]="books"
+    [paginator]="true"
     [rows]="itemsPerPage"
-    [totalRecords]="totalItems"
+    [totalRecords]="100"
     [rowsPerPageOptions]="[5, 10, 20]"
-    (onPageChange)="onPageChange($event)"
-    [pageLinkSize]="totalPages"
-  />
+    [lazy]="true"
+    (onLazyLoad)="onLazyLoad($event)"
+    paginatorPosition="both"
+  >
+    <ng-template pTemplate="header">
+      <input
+        pInputText
+        placeholder="Buscar"
+        (keydown.enter)="onSearchSubmit($event)"
+      />
+    </ng-template>
+    <ng-template pTemplate="list" let-books>
+      @for (book of books; track book.title) {
+        <app-book [book]="book" />
+      }
+    </ng-template>
+  </p-dataView>
 </div>

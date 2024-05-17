@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
+import { DataViewModule } from 'primeng/dataview';
 import { BooksService } from '../services/books.service';
 import { Book, Books } from '../../types';
 import { BookComponent } from '../components/book/book.component';
@@ -9,7 +10,13 @@ import { BookComponent } from '../components/book/book.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BookComponent, PaginatorModule, ToolbarModule, InputTextModule],
+  imports: [
+    BookComponent,
+    PaginatorModule,
+    ToolbarModule,
+    InputTextModule,
+    DataViewModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -17,7 +24,9 @@ export class HomeComponent implements OnInit {
   constructor(private booksService: BooksService) {}
 
   books: Book[] = [];
+  first: number = 0;
   itemsPerPage: number = 5;
+  selectedPage: number = 0;
   totalItems: number = 0;
   searchInput: string = '';
   totalPages: number = 0;
@@ -40,8 +49,11 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onPageChange(event: any) {
-    this.fetchBooks(event.page, event.rows);
+  onLazyLoad(event: any) {
+    this.first = event.first;
+    this.itemsPerPage = event.rows;
+    this.selectedPage = Math.floor(this.first / this.itemsPerPage);
+    this.fetchBooks(this.selectedPage, this.itemsPerPage);
   }
 
   onSearchSubmit(event: any) {
