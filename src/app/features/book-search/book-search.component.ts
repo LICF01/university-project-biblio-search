@@ -8,7 +8,7 @@ import { BooksService } from '../../services/books.service';
 import { BookComponent } from './components/book/book.component';
 
 @Component({
-  selector: 'app-books',
+  selector: 'app-book-search',
   standalone: true,
   imports: [
     BookComponent,
@@ -17,8 +17,8 @@ import { BookComponent } from './components/book/book.component';
     InputTextModule,
     DataViewModule,
   ],
-  templateUrl: './bookSearch.component.html',
-  styleUrl: './bookSearch.component.css',
+  templateUrl: './book-search.component.html',
+  styleUrl: './book-search.component.css',
 })
 export class BookSearchComponent implements OnInit {
   constructor(private booksService: BooksService) {}
