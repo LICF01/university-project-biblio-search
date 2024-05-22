@@ -1,0 +1,15 @@
+<p-menu [model]="items">
+  <ng-template pTemplate="start">
+    <div class="header-wrapper">
+      <span class="menu-header">
+        BIBLIO<span class="color-accent">SEARCH</span>
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="item" let-item>
+    <a pRipple [href]="item.url" class="p-menuitem-link">
+      <span [class]="item.icon" style="margin-right: 0.5rem"></span>
+      <span class="ml-2">{{ item.label }}</span>
+    </a>
+  </ng-template>
+</p-menu>

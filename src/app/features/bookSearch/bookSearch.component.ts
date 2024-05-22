@@ -3,12 +3,12 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { DataViewModule } from 'primeng/dataview';
-import { BooksService } from '../services/books.service';
-import { Book, Books } from '../../types';
-import { BookComponent } from '../components/book/book.component';
+import { Book, Books } from '../../../types';
+import { BooksService } from '../../services/books.service';
+import { BookComponent } from './components/book/book.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-books',
   standalone: true,
   imports: [
     BookComponent,
@@ -17,10 +17,10 @@ import { BookComponent } from '../components/book/book.component';
     InputTextModule,
     DataViewModule,
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  templateUrl: './bookSearch.component.html',
+  styleUrl: './bookSearch.component.css',
 })
-export class HomeComponent implements OnInit {
+export class BookSearchComponent implements OnInit {
   constructor(private booksService: BooksService) {}
 
   books: Book[] = [];

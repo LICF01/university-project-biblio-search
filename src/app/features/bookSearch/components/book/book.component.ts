@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { Book } from '../../../types';
+import { Book } from '../../../../../types';
 
 @Component({
   selector: 'app-book',

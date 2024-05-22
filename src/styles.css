@@ -1,5 +1,6 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 @import "./styles/variables.css";
 
 html,
@@ -23,6 +24,14 @@ app-root {
 app-root {
   display: flex;
   flex-direction: column;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .row {
@@ -63,6 +72,14 @@ app-root {
   gap: 2rem;
 }
 
+.p-1 {
+  padding: 1rem;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -82,4 +99,42 @@ app-root {
 
 .hidden {
   display: hidden;
+}
+
+.color-accent {
+  color: var(--accent);
+}
+
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.header-wrapper {
+  height: 56px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p-menu {
+  height: 100%;
+  padding: 0.25rem;
+  width: 100%;
+
+  p,
+  span {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.p-inputtext {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
 }

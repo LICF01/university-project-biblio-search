@@ -1,9 +1,19 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { BookSearchComponent } from './features/bookSearch/bookSearch.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: BookSearchComponent,
+  },
+  {
+    path: 'books/search',
+    title: 'Search',
+    component: BookSearchComponent,
+  },
+  {
+    path: 'books/manage',
+    title: 'Manage books',
+    component: BookSearchComponent,
   },
 ];
