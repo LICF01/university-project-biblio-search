@@ -5,11 +5,18 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-book-manager',
   standalone: true,
-  imports: [TableModule, CommonModule, InputTextModule, ButtonModule],
+  imports: [
+    TableModule,
+    CommonModule,
+    InputTextModule,
+    ButtonModule,
+    DialogModule,
+  ],
   templateUrl: './book-manager.component.html',
   styleUrl: './book-manager.component.css',
 })
@@ -17,6 +24,8 @@ export class BookManagerComponent {
   cols: Column[] = [];
   books: Book[] = [];
   searchInput: string = '';
+  dialog: boolean = false;
+  dialogTitle: string = '';
 
   constructor(private booksService: BooksService) {}
 
@@ -42,5 +51,8 @@ export class BookManagerComponent {
     this.fetchBooks();
   }
 
-  openNew() {}
+  openNew() {
+    this.dialog = true;
+    this.dialogTitle = 'Add book';
+  }
 }

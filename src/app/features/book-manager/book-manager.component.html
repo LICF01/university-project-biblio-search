@@ -16,7 +16,7 @@
         <p-button
           pRipple
           severity="success"
-          label="New"
+          label="Add"
           icon="pi pi-plus"
           class="mr-2"
           (click)="openNew()"
@@ -39,3 +39,10 @@
     </tr>
   </ng-template>
 </p-table>
+<p-dialog
+  [header]="dialogTitle"
+  [modal]="true"
+  [(visible)]="dialog"
+  [style]="{ width: '25rem' }"
+>
+</p-dialog>
