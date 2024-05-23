@@ -7,12 +7,20 @@ import { Books, PaginationParams } from '../../types';
   providedIn: 'root',
 })
 export class BooksService {
+  url = 'http://localhost:3000/books';
+
   constructor(private apiService: ApiService) {}
 
-  getBooks = (url: string, params: PaginationParams): Observable<Books> => {
-    return this.apiService.get(url, {
+  getBooks = (params: PaginationParams): Observable<Books> => {
+    return this.apiService.get(this.url, {
       params,
       responseType: 'json',
     });
   };
+
+  getAllBooks(): Observable<Books> {
+    return this.apiService.get(`${this.url}/all`, {
+      responseType: 'json',
+    });
+  }
 }

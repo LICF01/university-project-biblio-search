@@ -36,6 +36,7 @@ export type Book = {
   pages: number;
   title: string;
   year: number;
+  category: string;
 };
 
 export interface Books {
@@ -56,3 +57,8 @@ export interface PaginationParams {
   perPage: number;
   searchValue: string;
 }
+
+export type Column = {
+  field: keyof Book;
+  header: string;
+};

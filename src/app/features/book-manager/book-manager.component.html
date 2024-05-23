@@ -1,0 +1,41 @@
+<p-table
+  [value]="books"
+  [scrollable]="true"
+  [scrollHeight]="'calc(100vh - 160px)'"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template pTemplate="caption">
+    <div class="caption">
+      <div class="caption-item caption-item__left">
+        <h5 class="m-0">Manage books</h5>
+      </div>
+      <div class="caption-item caption-item__right">
+        <span class="p-input-icon-left">
+          <input pInputText type="text" placeholder="Search..." />
+        </span>
+        <p-button
+          pRipple
+          severity="success"
+          label="New"
+          icon="pi pi-plus"
+          class="mr-2"
+          (click)="openNew()"
+        />
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      @for (col of cols; track col.field) {
+        <th>{{ col.header }}</th>
+      }
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+    <tr>
+      @for (col of cols; track col.field) {
+        <td>{{ book[col.field] }}</td>
+      }
+    </tr>
+  </ng-template>
+</p-table>

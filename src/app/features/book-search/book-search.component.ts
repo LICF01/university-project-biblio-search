@@ -21,8 +21,6 @@ import { BookComponent } from './components/book/book.component';
   styleUrl: './book-search.component.css',
 })
 export class BookSearchComponent implements OnInit {
-  constructor(private booksService: BooksService) {}
-
   books: Book[] = [];
   first: number = 0;
   itemsPerPage: number = 5;
@@ -31,13 +29,15 @@ export class BookSearchComponent implements OnInit {
   searchInput: string = '';
   totalPages: number = 0;
 
+  constructor(private booksService: BooksService) {}
+
   ngOnInit() {
     this.fetchBooks(0, 5);
   }
 
   fetchBooks(page: number, perPage: number, searchValue?: string) {
     this.booksService
-      .getBooks('http://localhost:3000/books', {
+      .getBooks({
         page,
         perPage,
         searchValue: searchValue ?? '',
