@@ -45,4 +45,8 @@
   [(visible)]="dialog"
   [style]="{ width: '25rem' }"
 >
+  <app-book-form
+    (onFormSubmit)="onFormSubmit($event)"
+    (onFormCancel)="closeDialog()"
+  />
 </p-dialog>

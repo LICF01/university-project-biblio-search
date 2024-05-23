@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: semibold;
+    text-transform: capitalize;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}

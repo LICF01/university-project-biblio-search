@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { BookFormComponent } from './book-form/book-form.component';
 
 @Component({
   selector: 'app-book-manager',
@@ -16,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
     InputTextModule,
     ButtonModule,
     DialogModule,
+    BookFormComponent,
   ],
   templateUrl: './book-manager.component.html',
   styleUrl: './book-manager.component.css',
@@ -54,5 +56,15 @@ export class BookManagerComponent {
   openNew() {
     this.dialog = true;
     this.dialogTitle = 'Add book';
+  }
+
+  closeDialog() {
+    console.log('cancel');
+    this.dialog = false;
+  }
+
+  onFormSubmit(event: any) {
+    console.log('Form submitted!', event);
+    this.dialog = false;
   }
 }

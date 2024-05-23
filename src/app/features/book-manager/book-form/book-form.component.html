@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-item">
+    <label for="title">title</label>
+    <input pInputText id="title" type="text" formControlName="title" />
+  </div>
+  <div class="form-item">
+    <label for="author">author</label>
+    <input pInputText id="author" type="text" formControlName="author" />
+  </div>
+  <div class="form-item">
+    <label for="category">category</label>
+    <input pInputText id="category" type="text" formControlName="category" />
+  </div>
+  <div class="form-item">
+    <label for="language">language</label>
+    <input pInputText id="language" type="text" formControlName="language" />
+  </div>
+  <div class="form-item">
+    <label for="year">year</label>
+    <p-calendar
+      inputId="year"
+      view="year"
+      dateFormat="yy"
+      formControlName="year"
+    />
+  </div>
+  <div class="form-item">
+    <label for="pages">pages</label>
+    <p-inputNumber inputId="pages" formControlName="pages" />
+  </div>
+  <div class="form-item">
+    <label for="link">link</label>
+    <input pInputText id="link" type="text" formControlName="link" />
+  </div>
+
+  <div class="form-actions">
+    <p-button
+      label="Cancel"
+      icon="pi pi-times"
+      size="small"
+      [text]="true"
+      severity="danger"
+      (click)="onCancel()"
+    />
+    <p-button
+      type="submit"
+      label="Save"
+      icon="pi pi-check"
+      size="small"
+      severity="success"
+    />
+  </div>
+</form>
