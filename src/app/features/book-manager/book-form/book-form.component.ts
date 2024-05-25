@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-book-form',
@@ -17,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
     CalendarModule,
     ButtonModule,
     CommonModule,
+    PanelModule,
   ],
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.css',
@@ -33,17 +35,20 @@ export class BookFormComponent implements OnInit {
       author: new FormControl(''),
       category: new FormControl(''),
       language: new FormControl(''),
-      year: new FormControl(2024),
-      pages: new FormControl(0),
+      country: new FormControl(''),
+      year: new FormControl(new Date()),
+      pages: new FormControl(),
       link: new FormControl(''),
     });
   }
 
   onSubmit() {
     this.onFormSubmit.emit(this.form);
+    this.form.reset();
   }
 
   onCancel() {
     this.onFormCancel.emit(this.form);
+    this.form.reset();
   }
 }

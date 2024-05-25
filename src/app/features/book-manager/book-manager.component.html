@@ -19,6 +19,7 @@
           label="Add"
           icon="pi pi-plus"
           class="mr-2"
+          size="small"
           (click)="openNew()"
         />
       </div>
@@ -43,7 +44,7 @@
   [header]="dialogTitle"
   [modal]="true"
   [(visible)]="dialog"
-  [style]="{ width: '25rem' }"
+  [style]="{ width: 'min-content' }"
 >
   <app-book-form
     (onFormSubmit)="onFormSubmit($event)"

@@ -3,30 +3,40 @@
     <label for="title">title</label>
     <input pInputText id="title" type="text" formControlName="title" />
   </div>
-  <div class="form-item">
-    <label for="author">author</label>
-    <input pInputText id="author" type="text" formControlName="author" />
+  <div class="row">
+    <div class="form-item">
+      <label for="author">author</label>
+      <input pInputText id="author" type="text" formControlName="author" />
+    </div>
+    <div class="form-item">
+      <label for="category">category</label>
+      <input pInputText id="category" type="text" formControlName="category" />
+    </div>
   </div>
-  <div class="form-item">
-    <label for="category">category</label>
-    <input pInputText id="category" type="text" formControlName="category" />
+  <div class="row">
+    <div class="form-item">
+      <label for="country">country</label>
+      <input pInputText id="country" type="text" formControlName="country" />
+    </div>
+    <div class="form-item">
+      <label for="language">language</label>
+      <input pInputText id="language" type="text" formControlName="language" />
+    </div>
   </div>
-  <div class="form-item">
-    <label for="language">language</label>
-    <input pInputText id="language" type="text" formControlName="language" />
-  </div>
-  <div class="form-item">
-    <label for="year">year</label>
-    <p-calendar
-      inputId="year"
-      view="year"
-      dateFormat="yy"
-      formControlName="year"
-    />
-  </div>
-  <div class="form-item">
-    <label for="pages">pages</label>
-    <p-inputNumber inputId="pages" formControlName="pages" />
+  <div class="row">
+    <div class="form-item">
+      <label for="year">year</label>
+      <p-calendar
+        inputId="year"
+        view="year"
+        dateFormat="yy"
+        formControlName="year"
+      />
+    </div>
+    <div class="form-item">
+      <label for="pages">pages</label>
+      <p-inputNumber inputId="pages" formControlName="pages" />
+    </div>
   </div>
   <div class="form-item">
     <label for="link">link</label>
