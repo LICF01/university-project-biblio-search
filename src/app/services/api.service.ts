@@ -17,9 +17,14 @@ export class ApiService {
     return this.httpClient.post<T>(url, data, options) as Observable<T>;
   }
 
+  patch<T>(url: string, data: any, options: Options): Observable<T> {
+    return this.httpClient.patch<T>(url, data, options) as Observable<T>;
+  }
+
   put<T>(url: string, data: any, options: Options): Observable<T> {
     return this.httpClient.put<T>(url, data, options) as Observable<T>;
   }
+
   delete<T>(url: string, options: Options): Observable<T> {
     return this.httpClient.put<T>(url, options) as Observable<T>;
   }

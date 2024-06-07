@@ -25,7 +25,7 @@ export class FacultyService {
   }
 
   updateFaculty(data: any, id: string): Observable<Faculty> {
-    return this.apiService.put(this.url + `/${id}`, data, {
+    return this.apiService.patch(this.url + `/${id}`, data, {
       responseType: 'json',
     });
   }
