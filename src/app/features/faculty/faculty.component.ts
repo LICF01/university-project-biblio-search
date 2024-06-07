@@ -31,6 +31,7 @@ export class FacultyComponent {
   dataLabel: string = 'Faculty';
   title: string = 'Manage Faculties';
   dialog: boolean = false;
+  dialogTitle: string = '';
   faculty: Faculty | undefined;
 
   constructor(
@@ -47,7 +48,8 @@ export class FacultyComponent {
     });
   }
 
-  openNew() {
+  openNew(title: string = 'Add Faculty') {
+    this.dialogTitle = title;
     this.dialog = true;
   }
 
@@ -57,7 +59,7 @@ export class FacultyComponent {
 
   onFacultyEdit(data: any) {
     this.faculty = { ...data };
-    this.openNew();
+    this.openNew('Edit Faculty');
   }
 
   showSuccessMessage(action: string) {
