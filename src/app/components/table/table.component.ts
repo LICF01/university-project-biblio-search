@@ -23,7 +23,13 @@ export class TableComponent {
 
   ngOnChanges() {
     if (this.rows.length > 0) {
-      this.cols = Object.keys(this.rows[0]).map((key) => {
+      let keys = Object.keys(this.rows[0]);
+      keys.sort((a, b) => {
+        if (a === 'updated_at' || a === 'created_at') return 1;
+        if (b === 'updated_at' || b === 'created_at') return -1;
+        return 0;
+      });
+      this.cols = keys.map((key) => {
         return {
           field: key as keyof Row,
           header: key.charAt(0).toUpperCase() + key.slice(1),
