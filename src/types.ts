@@ -58,8 +58,10 @@ export interface PaginationParams {
   searchValue: string;
 }
 
+export type Row = Faculty | Book;
+
 export type Column = {
-  field: keyof Book;
+  field: keyof Faculty | keyof Book;
   header: string;
 };
 

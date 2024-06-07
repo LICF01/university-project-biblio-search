@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FacultyService } from '../../services/faculty/faculty.service';
-import { TableComponent } from '../../components/table/table.component';
-import { Faculty } from '../../../types';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TableComponent } from '../../components/table/table.component';
 import { FacultyFormComponent } from './components/faculty-form/faculty-form.component';
+import { FacultyService } from '../../services/faculty/faculty.service';
+import { Faculty } from '../../../types';
 
 @Component({
   selector: 'app-faculty',
@@ -29,6 +29,7 @@ export class FacultyComponent {
   dataLabel: string = 'Faculty';
   title: string = 'Manage Faculties';
   dialog: boolean = false;
+  faculty: Faculty | undefined;
 
   constructor(
     private facultyService: FacultyService,
@@ -51,7 +52,12 @@ export class FacultyComponent {
     this.dialog = false;
   }
 
-  onFormSubmit(data: any) {
+  onFacultyEdit(data: any) {
+    this.faculty = { ...data };
+    this.openNew();
+  }
+
+  onCreate(data: Faculty) {
     this.facultyService.createFaculty(data).subscribe({
       next: (data) => {
         this.messageService.add({
@@ -68,6 +74,31 @@ export class FacultyComponent {
           severity: 'error',
           summary: 'Error',
           detail: 'An error occurred while creating ' + this.dataLabel,
+        });
+      },
+      complete: () => {
+        this.dialog = false;
+      },
+    });
+  }
+
+  onUpdate(data: Faculty) {
+    this.facultyService.updateFaculty(data, data.id).subscribe({
+      next: (data) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: this.dataLabel + ' successfully updated',
+        });
+        this.facultyService.getAllFaculties().subscribe((faculties) => {
+          this.data = faculties;
+        });
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'An error occurred while updating ' + this.dataLabel,
         });
       },
       complete: () => {

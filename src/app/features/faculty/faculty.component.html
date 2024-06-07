@@ -1,5 +1,5 @@
 <p-toast />
-<app-table [rows]="data" [title]="title">
+<app-table [rows]="data" [title]="title" (onEditRow)="onFacultyEdit($event)">
   <div ngProjectAs="top-toolbar" class="header">
     <div class="header-item header-item__left">
       <h5 class="m-0">{{ title }}</h5>
@@ -27,7 +27,9 @@
   [style]="{ width: 'min-content' }"
 >
   <app-faculty-form
-    (onFormSubmit)="onFormSubmit($event)"
+    (onUpdate)="onUpdate($event)"
+    (onCreate)="onCreate($event)"
     (onFormCancel)="closeDialog()"
+    [data]="faculty"
   ></app-faculty-form>
 </p-dialog>
