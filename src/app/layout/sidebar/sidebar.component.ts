@@ -25,8 +25,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      { label: 'Buscar', icon: 'pi pi-fw pi-book', url: '/books/search' },
-      { label: 'Libros', icon: 'pi pi-fw pi-book', url: '/books/manager' },
+      { label: 'Faculty', icon: 'pi pi-fw pi-book', url: '/faculty' },
     ];
   }
 }

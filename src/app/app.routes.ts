@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { BookSearchComponent } from './features/book-search/book-search.component';
 import { BookManagerComponent } from './features/book-manager/book-manager.component';
+import { FacultyComponent } from './features/faculty/faculty.component';
 
 export const routes: Routes = [
   {
@@ -16,5 +17,10 @@ export const routes: Routes = [
     path: 'books/manager',
     title: 'Manage books',
     component: BookManagerComponent,
+  },
+  {
+    path: 'faculty',
+    title: 'Manage faculties',
+    component: FacultyComponent,
   },
 ];

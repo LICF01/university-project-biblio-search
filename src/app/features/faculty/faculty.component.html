@@ -1,0 +1,33 @@
+<p-toast />
+<app-table [rows]="data" [title]="title">
+  <div ngProjectAs="top-toolbar" class="header">
+    <div class="header-item header-item__left">
+      <h5 class="m-0">{{ title }}</h5>
+    </div>
+    <div class="header-item header-item__right">
+      <span class="p-input-icon-left">
+        <input pInputText type="text" placeholder="Search..." />
+      </span>
+      <p-button
+        pRipple
+        severity="success"
+        label="Add"
+        icon="pi pi-plus"
+        class="mr-2"
+        size="small"
+        (onClick)="openNew()"
+      />
+    </div>
+  </div>
+</app-table>
+<p-dialog
+  [header]="'Add ' + dataLabel"
+  [modal]="true"
+  [(visible)]="dialog"
+  [style]="{ width: 'min-content' }"
+>
+  <app-faculty-form
+    (onFormSubmit)="onFormSubmit($event)"
+    (onFormCancel)="closeDialog()"
+  ></app-faculty-form>
+</p-dialog>

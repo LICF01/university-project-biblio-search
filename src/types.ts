@@ -62,3 +62,11 @@ export type Column = {
   field: keyof Book;
   header: string;
 };
+
+export type Faculty = {
+  id: string;
+  name: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
+};
