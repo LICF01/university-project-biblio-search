@@ -29,4 +29,10 @@ export class FacultyService {
       responseType: 'json',
     });
   }
+
+  deleteFaculty(id: string): Observable<Faculty> {
+    return this.apiService.delete(this.url + `/${id}`, {
+      responseType: 'json',
+    });
+  }
 }

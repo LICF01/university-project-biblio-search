@@ -34,9 +34,7 @@ export class FacultyFormComponent {
   }
 
   onSubmit() {
-    console.log('this.data');
     if (this.data) {
-      console.log('update', this.data);
       this.onUpdate.emit({
         ...this.form.value,
         id: this.data.id,

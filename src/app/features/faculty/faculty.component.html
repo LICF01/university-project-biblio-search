@@ -1,5 +1,10 @@
 <p-toast />
-<app-table [rows]="data" [title]="title" (onEditRow)="onFacultyEdit($event)">
+<app-table
+  [rows]="data"
+  [title]="title"
+  (onEditRow)="onFacultyEdit($event)"
+  (onRowDelete)="showConfirmDialog($event)"
+>
   <div ngProjectAs="top-toolbar" class="header">
     <div class="header-item header-item__left">
       <h5 class="m-0">{{ title }}</h5>
@@ -33,3 +38,4 @@
     [data]="faculty"
   ></app-faculty-form>
 </p-dialog>
+<p-confirmDialog />

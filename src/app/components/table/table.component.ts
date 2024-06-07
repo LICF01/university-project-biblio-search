@@ -19,6 +19,7 @@ export class TableComponent {
   @Input() rows: Row[] = [];
 
   onEditRow = output<Row>();
+  onRowDelete = output<Row>();
 
   ngOnChanges() {
     if (this.rows.length > 0) {
@@ -33,5 +34,9 @@ export class TableComponent {
 
   editRow(row: Row) {
     this.onEditRow.emit(row);
+  }
+
+  deleteRow(row: Row) {
+    this.onRowDelete.emit(row);
   }
 }
