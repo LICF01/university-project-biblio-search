@@ -10,6 +10,7 @@
       @for (col of cols; track col.field) {
         <th>{{ col.header }}</th>
       }
+      <th>Actions</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-row>
@@ -23,13 +24,11 @@
           <td>{{ row[col.field] }}</td>
         }
       }
-      <td>
+      <td class="actions-column">
         <p-button
           pRipple
           icon="pi pi-pencil"
           class="mr-2"
-          [rounded]="true"
-          [outlined]="true"
           severity="success"
           (click)="editRow(row)"
         />
@@ -37,8 +36,6 @@
           pRipple
           icon="pi pi-trash"
           severity="danger"
-          [rounded]="true"
-          [outlined]="true"
           (click)="deleteRow(row)"
         />
       </td>
