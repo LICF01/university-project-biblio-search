@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, OnInit, effect, input, model, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -12,32 +12,35 @@ import { Faculty } from '../../../../../types';
   styleUrl: './faculty-form.component.css',
 })
 export class FacultyFormComponent {
-  form: any;
+  form: FormGroup;
 
   onCreate = output<any>();
   onUpdate = output<any>();
   onFormCancel = output<any>();
 
-  @Input() data: Faculty | undefined;
+  data = input<Faculty>();
 
-  ngOnInit() {
+  constructor() {
     this.form = new FormGroup({
       name: new FormControl(''),
       description: new FormControl(''),
     });
-  }
-
-  ngOnChanges() {
-    if (this.data) {
-      this.form.patchValue(this.data);
-    }
+    effect(() => {
+      const data = this.data();
+      if (data) {
+        this.form.patchValue(data);
+      } else {
+        this.form.reset();
+      }
+    });
   }
 
   onSubmit() {
-    if (this.data) {
+    const data = this.data();
+    if (data) {
       this.onUpdate.emit({
         ...this.form.value,
-        id: this.data.id,
+        id: data.id,
         updated_at: new Date().toISOString(),
       });
     } else {
@@ -48,12 +51,9 @@ export class FacultyFormComponent {
       });
     }
     this.form.reset();
-    this.data = undefined;
   }
 
   onCancel() {
     this.onFormCancel.emit(this.form);
-    this.form.reset();
-    this.data = undefined;
   }
 }

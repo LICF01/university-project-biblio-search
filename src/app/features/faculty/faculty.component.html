@@ -30,6 +30,7 @@
   [modal]="true"
   [(visible)]="dialog"
   [style]="{ width: 'min-content' }"
+  (onHide)="closeDialog()"
 >
   <app-faculty-form
     (onUpdate)="onUpdate($event)"

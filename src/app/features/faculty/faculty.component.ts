@@ -55,6 +55,7 @@ export class FacultyComponent {
 
   closeDialog() {
     this.dialog = false;
+    this.faculty = undefined;
   }
 
   onFacultyEdit(data: any) {
