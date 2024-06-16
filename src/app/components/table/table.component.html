@@ -1,13 +1,13 @@
 <ng-content select="top-toolbar"></ng-content>
 <p-table
-  [value]="rows"
+  [value]="rows()"
   [scrollable]="true"
   [scrollHeight]="'calc(100vh - 160px)'"
   [tableStyle]="{ 'min-width': '50rem' }"
 >
   <ng-template pTemplate="header">
     <tr>
-      @for (col of cols; track col.field) {
+      @for (col of cols(); track col.field) {
         <th>{{ col.header }}</th>
       }
       <th>Actions</th>
@@ -15,7 +15,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-row>
     <tr>
-      @for (col of cols; track col.field) {
+      @for (col of cols(); track col.field) {
         @if (col.field === "created_at" || col.field === "updated_at") {
           <td>
             {{ row[col.field] | date: "dd/MM/yyyy" }}
