@@ -1,33 +1,41 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="form-item">
-    <label for="name">name</label>
-    <input pInputText id="name" type="text" formControlName="name" />
-  </div>
-  <div class="form-item">
-    <label for="description">Description</label>
-    <input
-      pInputText
-      id="description"
-      type="text"
-      formControlName="description"
-    />
-  </div>
+<p-dialog
+  [header]="dialogTitle()"
+  [modal]="true"
+  [(visible)]="display"
+  [style]="{ width: 'min-content' }"
+  (onHide)="closeDialog()"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-item">
+      <label for="name">name</label>
+      <input pInputText id="name" type="text" formControlName="name" />
+    </div>
+    <div class="form-item">
+      <label for="description">Description</label>
+      <input
+        pInputText
+        id="description"
+        type="text"
+        formControlName="description"
+      />
+    </div>
 
-  <div class="form-actions">
-    <p-button
-      label="Cancel"
-      icon="pi pi-times"
-      size="small"
-      [text]="true"
-      severity="danger"
-      (click)="onCancel()"
-    />
-    <p-button
-      type="submit"
-      label="Save"
-      icon="pi pi-check"
-      size="small"
-      severity="success"
-    />
-  </div>
-</form>
+    <div class="form-actions">
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        size="small"
+        [text]="true"
+        severity="danger"
+        (click)="onCancel()"
+      />
+      <p-button
+        type="submit"
+        label="Save"
+        icon="pi pi-check"
+        size="small"
+        severity="success"
+      />
+    </div>
+  </form>
+</p-dialog>

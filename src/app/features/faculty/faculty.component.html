@@ -20,23 +20,16 @@
         icon="pi pi-plus"
         class="mr-2"
         size="small"
-        (onClick)="openNew()"
+        (onClick)="openFormDialog()"
       />
     </div>
   </div>
 </app-table>
-<p-dialog
-  [header]="dialogTitle"
-  [modal]="true"
-  [(visible)]="dialog"
-  [style]="{ width: 'min-content' }"
-  (onHide)="closeDialog()"
->
-  <app-faculty-form
-    (onUpdate)="onUpdate($event)"
-    (onCreate)="onCreate($event)"
-    (onFormCancel)="closeDialog()"
-    [data]="faculty"
-  ></app-faculty-form>
-</p-dialog>
+<app-faculty-form
+  [dialogTitle]="formTitle"
+  [(display)]="displayForm"
+  (onUpdate)="onUpdate($event)"
+  (onCreate)="onCreate($event)"
+  [data]="faculty"
+/>
 <p-confirmDialog />

@@ -30,9 +30,9 @@ export class FacultyComponent {
   data: Faculty[] = [];
   dataLabel: string = 'Faculty';
   title: string = 'Manage Faculties';
-  dialog: boolean = false;
-  dialogTitle: string = '';
   faculty: Faculty | undefined;
+  displayForm: boolean = false;
+  formTitle: string = 'Add Faculty';
 
   constructor(
     private facultyService: FacultyService,
@@ -48,19 +48,14 @@ export class FacultyComponent {
     });
   }
 
-  openNew(title: string = 'Add Faculty') {
-    this.dialogTitle = title;
-    this.dialog = true;
-  }
-
-  closeDialog() {
-    this.dialog = false;
-    this.faculty = undefined;
+  openFormDialog(title?: string) {
+    if (title) this.formTitle = title;
+    this.displayForm = true;
   }
 
   onFacultyEdit(data: any) {
     this.faculty = { ...data };
-    this.openNew('Edit Faculty');
+    this.openFormDialog('Edit Faculty');
   }
 
   showSuccessMessage(action: string) {
@@ -103,7 +98,7 @@ export class FacultyComponent {
         this.showErrorMessage('creating');
       },
       complete: () => {
-        this.dialog = false;
+        this.displayForm = false;
       },
     });
   }
@@ -118,7 +113,7 @@ export class FacultyComponent {
         this.showErrorMessage('updating');
       },
       complete: () => {
-        this.dialog = false;
+        this.displayForm = false;
       },
     });
   }
