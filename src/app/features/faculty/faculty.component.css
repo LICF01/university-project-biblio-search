@@ -1,10 +1,3 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-}
-
 .header-item {
   display: flex;
   align-items: center;

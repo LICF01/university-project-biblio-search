@@ -33,6 +33,7 @@ export class TableComponent {
     }
     return [];
   });
+  globalFilterFields = input<string[]>();
 
   onEditRow = output<Row>();
   onRowDelete = output<Row>();

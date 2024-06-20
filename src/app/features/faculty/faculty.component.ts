@@ -33,6 +33,7 @@ export class FacultyComponent {
   faculty: Faculty | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Add Faculty';
+  globalFilterFields = ['name'];
 
   constructor(
     private facultyService: FacultyService,

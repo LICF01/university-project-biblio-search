@@ -1,10 +1,27 @@
-<ng-content select="top-toolbar"></ng-content>
 <p-table
+  #table
   [value]="rows()"
   [scrollable]="true"
   [scrollHeight]="'calc(100vh - 160px)'"
   [tableStyle]="{ 'min-width': '50rem' }"
+  [globalFilterFields]="globalFilterFields()"
 >
+  <ng-template pTemplate="caption">
+    <div class="header-item header-item__left">
+      <h5 class="m-0">{{ title }}</h5>
+    </div>
+    <div class="header-item header-item__right">
+      <span class="p-input-icon-left">
+        <input
+          pInputText
+          type="text"
+          placeholder="Search..."
+          (input)="table.filterGlobal($any($event.target).value, 'contains')"
+        />
+      </span>
+      <ng-content select="top-toolbar-actions"></ng-content>
+    </div>
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       @for (col of cols(); track col.field) {

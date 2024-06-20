@@ -4,25 +4,18 @@
   [title]="title"
   (onEditRow)="onFacultyEdit($event)"
   (onRowDelete)="showConfirmDialog($event)"
+  [globalFilterFields]="globalFilterFields"
 >
-  <div ngProjectAs="top-toolbar" class="header">
-    <div class="header-item header-item__left">
-      <h5 class="m-0">{{ title }}</h5>
-    </div>
-    <div class="header-item header-item__right">
-      <span class="p-input-icon-left">
-        <input pInputText type="text" placeholder="Search..." />
-      </span>
-      <p-button
-        pRipple
-        severity="success"
-        label="Add"
-        icon="pi pi-plus"
-        class="mr-2"
-        size="small"
-        (onClick)="openFormDialog()"
-      />
-    </div>
+  <div ngProjectAs="top-toolbar-actions">
+    <p-button
+      pRipple
+      severity="success"
+      label="Add"
+      icon="pi pi-plus"
+      class="mr-2"
+      size="small"
+      (onClick)="openFormDialog()"
+    />
   </div>
 </app-table>
 <app-faculty-form
