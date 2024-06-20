@@ -14,3 +14,10 @@
   display: flex;
   gap: 1rem;
 }
+
+.header-item {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
