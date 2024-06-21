@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
+
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { TableComponent } from '../../components/table/table.component';
 import { FacultyFormComponent } from './components/faculty-form/faculty-form.component';
 import { FacultyService } from '../../services/faculty/faculty.service';
-import { Faculty } from '../../../types';
+import { Faculty, Row } from '../../../types';
 
 @Component({
   selector: 'app-faculty',
@@ -75,7 +77,7 @@ export class FacultyComponent {
     });
   }
 
-  showConfirmDialog(data: any) {
+  showConfirmDialog(data: Row) {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete this ${this.dataLabel}?`,
       header: 'Delete Confirmation',
@@ -83,10 +85,14 @@ export class FacultyComponent {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
-        this.onDelete(data);
+        this.onDelete(data as Faculty);
       },
       reject: () => {},
     });
+  }
+
+  onAddTableButton() {
+    this.openFormDialog();
   }
 
   onCreate(data: Faculty) {
@@ -119,7 +125,7 @@ export class FacultyComponent {
     });
   }
 
-  onDelete(data: any) {
+  onDelete(data: Faculty) {
     this.facultyService.deleteFaculty(data.id).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');

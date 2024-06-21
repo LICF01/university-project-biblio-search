@@ -37,6 +37,7 @@ export class TableComponent {
 
   onEditRow = output<Row>();
   onRowDelete = output<Row>();
+  onRowAdd = output();
 
   editRow(row: Row) {
     this.onEditRow.emit(row);
@@ -44,5 +45,9 @@ export class TableComponent {
 
   deleteRow(row: Row) {
     this.onRowDelete.emit(row);
+  }
+
+  addRow(e: Event) {
+    this.onRowAdd.emit();
   }
 }

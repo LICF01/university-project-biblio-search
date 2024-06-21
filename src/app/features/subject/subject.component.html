@@ -3,15 +3,8 @@
   [rows]="data"
   [title]="title"
   [globalFilterFields]="globalFilterFields"
-  (onEditRow)="onFacultyEdit($event)"
+  (onEditRow)="onSubjectEdit($event)"
   (onRowDelete)="showConfirmDialog($event)"
   (onRowAdd)="openFormDialog()"
-/>
-<app-faculty-form
-  [dialogTitle]="formTitle"
-  [(display)]="displayForm"
-  (onUpdate)="onUpdate($event)"
-  (onCreate)="onCreate($event)"
-  [data]="faculty"
 />
 <p-confirmDialog />

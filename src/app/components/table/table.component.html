@@ -16,7 +16,15 @@
           (input)="table.filterGlobal($any($event.target).value, 'contains')"
         />
       </span>
-      <ng-content select="top-toolbar-actions"></ng-content>
+      <p-button
+        pRipple
+        severity="success"
+        label="Add"
+        icon="pi pi-plus"
+        class="mr-2"
+        size="small"
+        (onClick)="addRow($event)"
+      />
     </div>
   </ng-template>
   <ng-template pTemplate="header">
