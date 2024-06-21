@@ -53,8 +53,8 @@ export class SubjectComponent {
     this.displayForm = true;
   }
 
-  onSubjectEdit(data: Subject) {
-    this.subject = { ...data };
+  onSubjectEdit(data: Row) {
+    this.subject = { ...(data as Subject) };
     this.openFormDialog('Edit Faculty');
   }
 
