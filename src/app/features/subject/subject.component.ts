@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SubjectFormComponent } from './components/subject-form/subject-form.component';
 
 @Component({
   selector: 'app-subject',
@@ -20,6 +21,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
+    SubjectFormComponent,
   ],
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.css',

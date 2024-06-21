@@ -7,4 +7,11 @@
   (onRowDelete)="showConfirmDialog($event)"
   (onRowAdd)="openFormDialog()"
 />
+<app-subject-form
+  [dialogTitle]="formTitle"
+  [(display)]="displayForm"
+  (onUpdate)="onUpdate($event)"
+  (onCreate)="onCreate($event)"
+  [data]="subject"
+/>
 <p-confirmDialog />
