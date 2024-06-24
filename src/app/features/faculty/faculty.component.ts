@@ -98,8 +98,9 @@ export class FacultyComponent {
   showSuccessMessage(action: string) {
     this.messageService.add({
       severity: 'success',
-      summary: 'Success',
-      detail: `${this.dataLabel} successfully ${action}`,
+      summary: 'Éxito',
+      // detail: `${this.dataLabel} successfully ${action}`,
+      detail: `La operación se realizó exitosamente`,
     });
   }
 
@@ -107,7 +108,8 @@ export class FacultyComponent {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      detail: `An error occurred while ${action} ${this.dataLabel}`,
+      // detail: `An error occurred while ${action} ${this.dataLabel}`,
+      detail: `Ha ocurrido un error durante la operación`,
     });
   }
 
