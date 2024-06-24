@@ -7,22 +7,13 @@
 >
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-item">
-      <label for="name">name</label>
+      <label for="name">Nombre</label>
       <input pInputText id="name" type="text" formControlName="name" />
-    </div>
-    <div class="form-item">
-      <label for="description">Description</label>
-      <input
-        pInputText
-        id="description"
-        type="text"
-        formControlName="description"
-      />
     </div>
 
     <div class="form-actions">
       <p-button
-        label="Cancel"
+        label="Cancelar"
         icon="pi pi-times"
         size="small"
         [text]="true"
@@ -31,7 +22,7 @@
       />
       <p-button
         type="submit"
-        label="Save"
+        label="Guardar"
         icon="pi pi-check"
         size="small"
         severity="success"
