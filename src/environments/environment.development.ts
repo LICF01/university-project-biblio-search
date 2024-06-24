@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: '',
-  facultyEndpoint: '',
+  apiUrl: 'http://localhost:3000',
+  facultyEndpoint: '/facultad',
   subjectsEndpoint: '',
 };
