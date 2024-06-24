@@ -30,7 +30,7 @@
   <ng-template pTemplate="header">
     <tr>
       @for (col of cols(); track col.field) {
-        @if (col.header !== "Id") {
+        @if (col.header !== "Materias") {
           <th>{{ col.header }}</th>
         }
       }
@@ -45,7 +45,7 @@
             {{ row[col.field] | date: "dd/MM/yyyy" }}
           </td>
         } @else {
-          @if (col.header !== "Id") {
+          @if (col.header !== "Materias") {
             <td>{{ row[col.field] }}</td>
           }
         }
