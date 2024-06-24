@@ -43,12 +43,14 @@ export class FacultyFormComponent {
     if (data) {
       this.onUpdate.emit({
         ...this.form.value,
-        id: data.id,
+        facultyId: data.facultyId,
+        subjects: data.subjects ? data.subjects : [],
         updated_at: new Date().toISOString(),
       });
     } else {
       this.onCreate.emit({
         ...this.form.value,
+        subjects: [],
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       });

@@ -46,8 +46,10 @@ export class FacultyComponent {
   }
 
   fetchFaculties() {
-    this.facultyService.getAllFaculties().subscribe((faculties) => {
-      this.data = faculties.filter((faculty) => faculty.hasOwnProperty('name'));
+    this.facultyService.getAllFaculties().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.data = res.data;
+      }
     });
   }
 
@@ -85,6 +87,7 @@ export class FacultyComponent {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
+        console.log(data);
         this.onDelete(data as Faculty);
       },
       reject: () => {},
@@ -111,7 +114,7 @@ export class FacultyComponent {
   }
 
   onUpdate(data: Faculty) {
-    this.facultyService.updateFaculty(data, data.id).subscribe({
+    this.facultyService.updateFaculty(data, data.facultyId).subscribe({
       next: () => {
         this.showSuccessMessage('updated');
         this.fetchFaculties();
@@ -126,7 +129,7 @@ export class FacultyComponent {
   }
 
   onDelete(data: Faculty) {
-    this.facultyService.deleteFaculty(data.id).subscribe({
+    this.facultyService.deleteFaculty(data.facultyId).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');
         this.fetchFaculties();

@@ -66,9 +66,10 @@ export type Column = {
 };
 
 export type Faculty = {
-  id: string;
+  facultyId: string;
   name: string;
   description: string;
+  subjects: string[];
   created_at: Date;
   updated_at: Date;
 };
