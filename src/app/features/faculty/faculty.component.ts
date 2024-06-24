@@ -91,7 +91,7 @@ export class FacultyComponent {
   }
 
   onFacultyEdit(data: any) {
-    this.faculty = { ...data() };
+    this.faculty = { ...data };
     this.openFormDialog('Edit Faculty');
   }
 
