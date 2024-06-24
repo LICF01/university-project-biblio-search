@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableComponent } from '../../components/table/table.component';
 import { FacultyFormComponent } from './components/faculty-form/faculty-form.component';
 import { FacultyService } from '../../services/faculty/faculty.service';
-import { Faculty, Row } from '../../../types';
+import { Column, Faculty, Row } from '../../../types';
 
 @Component({
   selector: 'app-faculty',
@@ -29,13 +29,45 @@ import { Faculty, Row } from '../../../types';
   providers: [MessageService, ConfirmationService],
 })
 export class FacultyComponent {
-  data: Faculty[] = [];
-  dataLabel: string = 'Faculty';
-  title: string = 'Manage Faculties';
+  data = signal<Faculty[]>([]);
+  dataLabel: string = 'Facultad';
+  title: string = 'Administrar Facultades';
   faculty: Faculty | undefined;
   displayForm: boolean = false;
-  formTitle: string = 'Add Faculty';
+  formTitle: string = 'Agregar Facultad';
   globalFilterFields = ['name'];
+
+  cols = computed<Column[]>(() => {
+    const rows = this.data();
+    if (rows.length > 0) {
+      let keys = Object.keys(rows[0]);
+      keys.sort((a, b) => {
+        if (a === 'updated_at' || a === 'created_at') return 1;
+        if (b === 'updated_at' || b === 'created_at') return -1;
+        return 0;
+      });
+      return keys.map((key) => {
+        const getHeader = (key: string): string => {
+          switch (key) {
+            case 'facultyId':
+              return 'Id';
+            case 'name':
+              return 'Nombre';
+            case 'subjects':
+              return 'Materias';
+            default:
+              return '';
+          }
+        };
+
+        return {
+          field: key as keyof Row,
+          header: getHeader(key),
+        };
+      });
+    }
+    return [];
+  });
 
   constructor(
     private facultyService: FacultyService,
@@ -48,7 +80,7 @@ export class FacultyComponent {
   fetchFaculties() {
     this.facultyService.getAllFaculties().subscribe((res: any) => {
       if (res.status === 'success') {
-        this.data = res.data;
+        this.data.set(res.data);
       }
     });
   }
@@ -59,7 +91,7 @@ export class FacultyComponent {
   }
 
   onFacultyEdit(data: any) {
-    this.faculty = { ...data };
+    this.faculty = { ...data() };
     this.openFormDialog('Edit Faculty');
   }
 
@@ -81,13 +113,14 @@ export class FacultyComponent {
 
   showConfirmDialog(data: Row) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete this ${this.dataLabel}?`,
-      header: 'Delete Confirmation',
+      message: `Está seguro que desea eliminar ${this.dataLabel}?`,
+      header: 'Confirmación de Eliminación',
       icon: 'none',
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-text',
+      acceptLabel: 'Aceptar',
+      rejectLabel: 'Rechazar',
       accept: () => {
-        console.log(data);
         this.onDelete(data as Faculty);
       },
       reject: () => {},

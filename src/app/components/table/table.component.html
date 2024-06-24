@@ -12,14 +12,14 @@
         <input
           pInputText
           type="text"
-          placeholder="Search..."
+          placeholder="Buscar ..."
           (input)="table.filterGlobal($any($event.target).value, 'contains')"
         />
       </span>
       <p-button
         pRipple
         severity="success"
-        label="Add"
+        label="Añadir"
         icon="pi pi-plus"
         class="mr-2"
         size="small"
@@ -30,9 +30,11 @@
   <ng-template pTemplate="header">
     <tr>
       @for (col of cols(); track col.field) {
-        <th>{{ col.header }}</th>
+        @if (col.header !== "Id") {
+          <th>{{ col.header }}</th>
+        }
       }
-      <th>Actions</th>
+      <th>Acciones</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-row>
@@ -43,7 +45,9 @@
             {{ row[col.field] | date: "dd/MM/yyyy" }}
           </td>
         } @else {
-          <td>{{ row[col.field] }}</td>
+          @if (col.header !== "Id") {
+            <td>{{ row[col.field] }}</td>
+          }
         }
       }
       <td class="actions-column">

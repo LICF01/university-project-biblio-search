@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { SubjectService } from '../../services/subject/subject.service';
-import { Row, Subject } from '../../../types';
+import { Column, Row, Subject } from '../../../types';
 import { TableComponent } from '../../components/table/table.component';
 
 import { DialogModule } from 'primeng/dialog';
@@ -34,6 +34,37 @@ export class SubjectComponent {
   subject: Subject | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Add Subject';
+  cols = computed<Column[]>(() => {
+    const rows = this.data;
+    if (rows.length > 0) {
+      let keys = Object.keys(rows[0]);
+      keys.sort((a, b) => {
+        if (a === 'updated_at' || a === 'created_at') return 1;
+        if (b === 'updated_at' || b === 'created_at') return -1;
+        return 0;
+      });
+      return keys.map((key) => {
+        const getHeader = (key: string): string => {
+          switch (key) {
+            case 'facultyId':
+              return 'id';
+            case 'name':
+              return 'nombre';
+            case 'subjects':
+              return 'materias';
+            default:
+              return '';
+          }
+        };
+
+        return {
+          field: key as keyof Row,
+          header: getHeader(key),
+        };
+      });
+    }
+    return [];
+  });
   globalFilterFields = ['name'];
 
   constructor(
@@ -104,7 +135,7 @@ export class SubjectComponent {
 
   showConfirmDialog(data: Row) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete this ${this.dataLabel}?`,
+      message: `Está seguro de eliminar ${this.dataLabel}?`,
       header: 'Delete Confirmation',
       icon: 'none',
       acceptButtonStyleClass: 'p-button-danger',

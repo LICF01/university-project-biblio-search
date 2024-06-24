@@ -1,6 +1,7 @@
 <p-toast />
 <app-table
-  [rows]="data"
+  [rows]="data()"
+  [cols]="cols()"
   [title]="title"
   [globalFilterFields]="globalFilterFields"
   (onEditRow)="onFacultyEdit($event)"

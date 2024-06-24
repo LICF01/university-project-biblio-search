@@ -10,12 +10,12 @@ export const routes: Routes = [
   },
   {
     path: 'faculty',
-    title: 'Manage faculties',
+    title: 'Administrar Facultades',
     component: FacultyComponent,
   },
   {
     path: 'subject',
-    title: 'Manage subjects',
+    title: 'Administrar Materias',
     component: SubjectComponent,
   },
 ];

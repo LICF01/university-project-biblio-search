@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -15,29 +15,18 @@ import { Column, Row } from '../../../types';
 export class TableComponent {
   title = input.required<string>();
   rows = input.required<Row[] | []>();
-  cols = computed<Column[]>(() => {
-    const rows = this.rows();
-    if (rows.length > 0) {
-      let keys = Object.keys(rows[0]);
-      keys.sort((a, b) => {
-        if (a === 'updated_at' || a === 'created_at') return 1;
-        if (b === 'updated_at' || b === 'created_at') return -1;
-        return 0;
-      });
-      return keys.map((key) => {
-        return {
-          field: key as keyof Row,
-          header: key.charAt(0).toUpperCase() + key.slice(1),
-        };
-      });
-    }
-    return [];
-  });
+  cols = input.required<Column[]>();
   globalFilterFields = input<string[]>();
 
   onEditRow = output<Row>();
   onRowDelete = output<Row>();
   onRowAdd = output();
+
+  constructor() {
+    effect(() => {
+      console.log(this.cols());
+    });
+  }
 
   editRow(row: Row) {
     this.onEditRow.emit(row);
