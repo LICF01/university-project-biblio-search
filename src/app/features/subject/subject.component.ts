@@ -36,6 +36,7 @@ export class SubjectComponent {
   subject: Subject | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Add Subject';
+  globalFilterFields = ['nombre_materia', 'nombre_facultad'];
   cols = computed<Column[]>(() => {
     const rows = this.data();
     if (rows.length > 0) {
@@ -69,7 +70,6 @@ export class SubjectComponent {
     }
     return [];
   });
-  globalFilterFields = ['name'];
 
   constructor(
     private subjectService: SubjectService,

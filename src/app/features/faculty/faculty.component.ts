@@ -35,7 +35,7 @@ export class FacultyComponent {
   faculty: Faculty | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Agregar Facultad';
-  globalFilterFields = ['name'];
+  globalFilterFields = ['nombre'];
 
   cols = computed<Column[]>(() => {
     const rows = this.data();
