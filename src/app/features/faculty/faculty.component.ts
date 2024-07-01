@@ -149,7 +149,7 @@ export class FacultyComponent {
   }
 
   onUpdate(data: Faculty) {
-    this.facultyService.updateFaculty(data, data.facultyId).subscribe({
+    this.facultyService.updateFaculty(data, data.idfacultad).subscribe({
       next: () => {
         this.showSuccessMessage('updated');
         this.fetchFaculties();
@@ -164,7 +164,7 @@ export class FacultyComponent {
   }
 
   onDelete(data: Faculty) {
-    this.facultyService.deleteFaculty(data.facultyId).subscribe({
+    this.facultyService.deleteFaculty(data.idfacultad).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');
         this.fetchFaculties();

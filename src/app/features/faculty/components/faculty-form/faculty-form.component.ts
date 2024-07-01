@@ -25,8 +25,7 @@ export class FacultyFormComponent {
 
   constructor() {
     this.form = new FormGroup({
-      name: new FormControl(''),
-      description: new FormControl(''),
+      nombre: new FormControl(''),
     });
     effect(() => {
       const data = this.data();
@@ -40,19 +39,15 @@ export class FacultyFormComponent {
 
   onSubmit() {
     const data = this.data();
+    const formValues = this.form.value;
     if (data) {
       this.onUpdate.emit({
-        ...this.form.value,
-        facultyId: data.facultyId,
-        subjects: data.subjects ? data.subjects : [],
-        updated_at: new Date().toISOString(),
+        idfacultad: data.idfacultad,
+        name: formValues.nombre,
       });
     } else {
       this.onCreate.emit({
         ...this.form.value,
-        subjects: [],
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
       });
     }
   }
