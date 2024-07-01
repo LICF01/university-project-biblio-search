@@ -71,10 +71,8 @@ export type Faculty = {
 };
 
 export type Subject = {
-  id: string;
-  name: string;
-  description: string;
-  faculty: string[];
-  created_at: Date;
-  updated_at: Date;
+  idmateria: number;
+  nombre_materia: string;
+  idfacultad: number;
+  nombre_facultad: string;
 };

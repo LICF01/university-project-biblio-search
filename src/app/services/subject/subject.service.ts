@@ -24,13 +24,13 @@ export class SubjectService {
     });
   }
 
-  updateSubject(data: any, id: string): Observable<Subject> {
+  updateSubject(data: any, id: number): Observable<Subject> {
     return this.apiService.patch(this.url + `/${id}`, data, {
       responseType: 'json',
     });
   }
 
-  deleteSubject(id: string): Observable<Subject> {
+  deleteSubject(id: number): Observable<Subject> {
     return this.apiService.delete(this.url + `/${id}`, {
       responseType: 'json',
     });

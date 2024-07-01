@@ -1,6 +1,6 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { SubjectService } from '../../services/subject/subject.service';
-import { Column, Row, Subject } from '../../../types';
+import { Column, Faculty, Row, Subject } from '../../../types';
 import { TableComponent } from '../../components/table/table.component';
 
 import { DialogModule } from 'primeng/dialog';
@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SubjectFormComponent } from './components/subject-form/subject-form.component';
+import { FacultyService } from '../../services/faculty/faculty.service';
 
 @Component({
   selector: 'app-subject',
@@ -28,14 +29,15 @@ import { SubjectFormComponent } from './components/subject-form/subject-form.com
   providers: [ConfirmationService, MessageService],
 })
 export class SubjectComponent {
-  data: Subject[] = [];
+  data = signal<Subject[]>([]);
+  faculties = signal<Faculty[]>([]);
   dataLabel: string = 'Subject';
   title: string = 'Manage Subjects';
   subject: Subject | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Add Subject';
   cols = computed<Column[]>(() => {
-    const rows = this.data;
+    const rows = this.data();
     if (rows.length > 0) {
       let keys = Object.keys(rows[0]);
       keys.sort((a, b) => {
@@ -46,12 +48,14 @@ export class SubjectComponent {
       return keys.map((key) => {
         const getHeader = (key: string): string => {
           switch (key) {
-            case 'facultyId':
-              return 'id';
-            case 'name':
-              return 'nombre';
-            case 'subjects':
-              return 'materias';
+            case 'idmateria':
+              return 'Id';
+            case 'nombre_materia':
+              return 'Nombre';
+            case 'idfacultad':
+              return 'Id Facultad';
+            case 'nombre_facultad':
+              return 'Facultad';
             default:
               return '';
           }
@@ -69,15 +73,25 @@ export class SubjectComponent {
 
   constructor(
     private subjectService: SubjectService,
+    private facultyService: FacultyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
   ) {
     this.fetchSubjects();
+    this.fetchFaculties();
   }
 
   fetchSubjects() {
-    this.subjectService.getAllSubjects().subscribe((data) => {
-      this.data = data.filter((obj) => obj.hasOwnProperty('name'));
+    this.subjectService.getAllSubjects().subscribe((res: any) => {
+      this.data.set(res.data);
+    });
+  }
+
+  fetchFaculties() {
+    this.facultyService.getAllFaculties().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.faculties.set(res.data);
+      }
     });
   }
 
@@ -86,8 +100,17 @@ export class SubjectComponent {
     this.displayForm = true;
   }
 
-  onSubjectEdit(data: Row) {
-    this.subject = { ...(data as Subject) };
+  onSubjectEdit(data: any) {
+    this.subject = {
+      ...({
+        idmateria: data.idmateria,
+        nombre: data.nombre_materia,
+        facultad: {
+          idfacultad: data.idfacultad,
+          nombre: data.nombre_facultad,
+        },
+      } as any),
+    };
     this.openFormDialog('Edit Faculty');
   }
 
@@ -107,7 +130,7 @@ export class SubjectComponent {
   }
 
   onUpdate(data: Subject) {
-    this.subjectService.updateSubject(data, data.id).subscribe({
+    this.subjectService.updateSubject(data, data.idmateria).subscribe({
       next: () => {
         this.showSuccessMessage('updated');
         this.fetchSubjects();
@@ -122,7 +145,7 @@ export class SubjectComponent {
   }
 
   onDelete(data: Subject) {
-    this.subjectService.deleteSubject(data.id).subscribe({
+    this.subjectService.deleteSubject(data.idmateria).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');
         this.fetchSubjects();

@@ -7,16 +7,17 @@
 >
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-item">
-      <label for="name">name</label>
-      <input pInputText id="name" type="text" formControlName="name" />
+      <label for="nombre">Nombre</label>
+      <input pInputText id="nombre" type="text" formControlName="nombre" />
     </div>
     <div class="form-item">
-      <label for="description">Description</label>
-      <input
-        pInputText
-        id="description"
-        type="text"
-        formControlName="description"
+      <label for="facultad">Facultad</label>
+      <p-autoComplete
+        formControlName="facultad"
+        [dropdown]="true"
+        [suggestions]="filteredFaculties"
+        (completeMethod)="filterFaculty($event)"
+        field="nombre"
       />
     </div>
 

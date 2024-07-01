@@ -49,12 +49,10 @@ export class FacultyComponent {
       return keys.map((key) => {
         const getHeader = (key: string): string => {
           switch (key) {
-            case 'facultyId':
+            case 'idfacultad':
               return 'Id';
-            case 'name':
+            case 'nombre':
               return 'Nombre';
-            case 'subjects':
-              return 'Materias';
             default:
               return '';
           }

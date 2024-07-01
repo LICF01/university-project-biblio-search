@@ -1,6 +1,6 @@
 <p-toast />
 <app-table
-  [rows]="data"
+  [rows]="data()"
   [cols]="cols()"
   [title]="title"
   [globalFilterFields]="globalFilterFields"
@@ -14,5 +14,6 @@
   (onUpdate)="onUpdate($event)"
   (onCreate)="onCreate($event)"
   [data]="subject"
+  [faculties]="faculties()"
 />
 <p-confirmDialog />
