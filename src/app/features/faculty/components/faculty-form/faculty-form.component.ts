@@ -47,7 +47,7 @@ export class FacultyFormComponent {
       });
     } else {
       this.onCreate.emit({
-        ...this.form.value,
+        name: formValues.nombre,
       });
     }
   }
