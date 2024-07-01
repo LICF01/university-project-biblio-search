@@ -3,12 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
-import {
-  AutoCompleteCompleteEvent,
-  AutoCompleteModule,
-} from 'primeng/autocomplete';
+import { DropdownModule } from 'primeng/dropdown';
 import { Faculty, Subject } from '../../../../../types';
-import { FacultyService } from '../../../../services/faculty/faculty.service';
 
 @Component({
   selector: 'app-subject-form',
@@ -18,7 +14,7 @@ import { FacultyService } from '../../../../services/faculty/faculty.service';
     InputTextModule,
     ButtonModule,
     DialogModule,
-    AutoCompleteModule,
+    DropdownModule,
   ],
   templateUrl: './subject-form.component.html',
   styleUrl: './subject-form.component.css',
@@ -32,7 +28,7 @@ export class SubjectFormComponent {
   onCreate = output<any>();
   onUpdate = output<any>();
 
-  data = model<Subject>();
+  data = model<any>();
   faculties = model.required<Faculty[]>();
 
   filteredFaculties: any[] = [];
@@ -40,13 +36,16 @@ export class SubjectFormComponent {
   constructor() {
     this.form = new FormGroup({
       nombre: new FormControl(''),
-      facultad: new FormControl({ idfacultad: '', nombre: '' }),
+      facultad: new FormControl<Object | null>(null),
     });
 
     effect(() => {
       const data = this.data();
       if (data) {
-        this.form.patchValue(data);
+        this.form.patchValue({
+          nombre: data.nombre,
+          facultad: data.facultad,
+        });
       } else {
         this.form.reset();
       }
@@ -58,13 +57,13 @@ export class SubjectFormComponent {
     if (data) {
       this.onUpdate.emit({
         name: this.form.value.nombre,
-        facultyId: this.form.value.facultad.idfacultad,
+        facultyId: this.form.value.facultad,
         idmateria: data.idmateria,
       });
     } else {
       this.onCreate.emit({
         name: this.form.value.nombre,
-        facultyId: this.form.value.facultad.idfacultad,
+        facultyId: this.form.value.facultad,
         subjectId: this.form.value.idmateria,
       });
     }
@@ -80,15 +79,5 @@ export class SubjectFormComponent {
 
   onCancel() {
     this.closeDialog();
-  }
-
-  filterFaculty(event: AutoCompleteCompleteEvent) {
-    let query = event.query;
-
-    const faculties = this.faculties() || [];
-
-    this.filteredFaculties = faculties.filter((faculty) =>
-      faculty.nombre.toLowerCase().includes(query.toLowerCase()),
-    );
   }
 }

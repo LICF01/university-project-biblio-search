@@ -12,12 +12,14 @@
     </div>
     <div class="form-item">
       <label for="facultad">Facultad</label>
-      <p-autoComplete
+      <p-dropdown
         formControlName="facultad"
-        [dropdown]="true"
-        [suggestions]="filteredFaculties"
-        (completeMethod)="filterFaculty($event)"
-        field="nombre"
+        [options]="faculties()"
+        optionLabel="nombre"
+        optionValue="idfacultad"
+        placeholder="Seleccione una facultad"
+        dataKey="idfacultad"
+        appendTo="body"
       />
     </div>
 
