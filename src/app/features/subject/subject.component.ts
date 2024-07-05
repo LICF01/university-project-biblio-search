@@ -32,10 +32,10 @@ export class SubjectComponent {
   data = signal<Subject[]>([]);
   faculties = signal<Faculty[]>([]);
   dataLabel: string = 'Subject';
-  title: string = 'Manage Subjects';
+  title: string = 'Administrar Materias';
   subject: Subject | undefined;
   displayForm: boolean = false;
-  formTitle: string = 'Add Subject';
+  formTitle: string = 'Añadir Materia';
   globalFilterFields = ['nombre_materia', 'nombre_facultad'];
   cols = computed<Column[]>(() => {
     const rows = this.data();
@@ -111,7 +111,7 @@ export class SubjectComponent {
         },
       } as any),
     };
-    this.openFormDialog('Edit Faculty');
+    this.openFormDialog('Editar Materia');
   }
 
   onCreate(data: Subject) {
