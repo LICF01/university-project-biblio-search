@@ -3,4 +3,5 @@ export const environment = {
   apiUrl: '',
   facultyEndpoint: '',
   subjectsEndpoint: '',
+  resourceEndpoint: '',
 };

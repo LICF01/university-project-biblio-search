@@ -3,4 +3,5 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   facultyEndpoint: '/facultad',
   subjectsEndpoint: '/materia',
+  resourceEndpoint: '/material',
 };
