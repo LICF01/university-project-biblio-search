@@ -127,10 +127,6 @@ export class FacultyComponent {
     });
   }
 
-  onAddTableButton() {
-    this.openFormDialog();
-  }
-
   onCreate(data: Faculty) {
     this.facultyService.createFaculty(data).subscribe({
       next: () => {
