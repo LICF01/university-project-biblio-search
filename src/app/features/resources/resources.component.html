@@ -4,5 +4,16 @@
   [cols]="cols()"
   [title]="title"
   [globalFilterFields]="globalFilterFields"
+  (onEditRow)="onResourceEdit($event)"
+  (onRowDelete)="showConfirmDialog($event)"
+  (onRowAdd)="openFormDialog()"
+/>
+<app-resources-form
+  [dialogTitle]="formTitle"
+  [(display)]="displayForm"
+  [resourcesTypes]="resourceTypes"
+  (onUpdate)="onUpdate($event)"
+  (onCreate)="onCreate($event)"
+  [data]="resource"
 />
 <p-confirmDialog />

@@ -79,8 +79,10 @@ export type Subject = {
 
 export type Resource = {
   idmaterial: number;
+  materialId?: number;
   titulo: string;
   autor: string;
   tipomaterial: number;
+  nombreTipoMaterial?: string;
   url: string;
 };

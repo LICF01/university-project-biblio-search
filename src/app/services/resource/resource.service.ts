@@ -12,25 +12,25 @@ export class ResourceService {
 
   constructor(private apiService: ApiService) {}
 
-  getAllFaculties(): Observable<Resource[]> {
+  getAllResources(): Observable<Resource[]> {
     return this.apiService.get(this.url, {
       responseType: 'json',
     });
   }
 
-  createFaculty(data: any): Observable<Resource> {
+  createResource(data: any): Observable<Resource> {
     return this.apiService.post(this.url, data, {
       responseType: 'json',
     });
   }
 
-  updateFaculty(data: any, id: string): Observable<Resource> {
+  updateResource(data: any, id: number): Observable<Resource> {
     return this.apiService.patch(this.url + `/${id}`, data, {
       responseType: 'json',
     });
   }
 
-  deleteFaculty(id: string): Observable<Resource> {
+  deleteResource(id: number): Observable<Resource> {
     return this.apiService.delete(this.url + `/${id}`, {
       responseType: 'json',
     });

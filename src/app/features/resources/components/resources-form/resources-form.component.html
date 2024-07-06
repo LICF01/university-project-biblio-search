@@ -1,0 +1,50 @@
+<p-dialog
+  [header]="dialogTitle()"
+  [modal]="true"
+  [(visible)]="display"
+  [style]="{ width: 'min-content' }"
+  (onHide)="closeDialog()"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-item">
+      <label for="titulo">Titulo</label>
+      <input pInputText id="titulo" type="text" formControlName="titulo" />
+    </div>
+    <div class="form-item">
+      <label for="autor">Autor</label>
+      <input pInputText id="autor" type="text" formControlName="autor" />
+    </div>
+    <div class="form-item">
+      <label for="url">URL</label>
+      <input pInputText id="url" type="text" formControlName="url" />
+    </div>
+    <div class="form-item">
+      <label for="material">Tipo de Material</label>
+      <p-dropdown
+        formControlName="material"
+        [options]="resourcesOptions()"
+        optionLabel="label"
+        placeholder="Seleccione un tipo de material"
+        appendTo="body"
+      />
+    </div>
+
+    <div class="form-actions">
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        size="small"
+        [text]="true"
+        severity="danger"
+        (click)="onCancel()"
+      />
+      <p-button
+        type="submit"
+        label="Guardar"
+        icon="pi pi-check"
+        size="small"
+        severity="success"
+      />
+    </div>
+  </form>
+</p-dialog>
