@@ -21,7 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'resources',
-    title: 'Administrar Recursos',
+    title: 'Administrar Materiales',
     component: ResourcesComponent,
   },
 ];

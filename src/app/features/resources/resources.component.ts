@@ -33,7 +33,7 @@ export class ResourcesComponent {
   title: string = 'Administrar Materiales';
   resource: Resource | undefined;
   displayForm: boolean = false;
-  formTitle: string = 'Agregar Recurso';
+  formTitle: string = 'Agregar Material';
   globalFilterFields = ['titulo'];
   resourceTypes = {
     1: 'Libro',
