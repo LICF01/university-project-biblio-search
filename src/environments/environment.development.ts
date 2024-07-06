@@ -4,4 +4,5 @@ export const environment = {
   facultyEndpoint: '/facultad',
   subjectsEndpoint: '/materia',
   resourceEndpoint: '/material',
+  bibliographyEndpoint: '/bibliografia',
 };

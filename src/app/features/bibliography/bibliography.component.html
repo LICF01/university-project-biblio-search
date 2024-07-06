@@ -1,0 +1,11 @@
+<p-toast />
+<app-table
+  [rows]="data()"
+  [cols]="cols()"
+  [title]="title"
+  [globalFilterFields]="globalFilterFields"
+  (onEditRow)="onBibliographyEdit($event)"
+  (onRowDelete)="showConfirmDialog($event)"
+  (onRowAdd)="openFormDialog()"
+/>
+<p-confirmDialog />

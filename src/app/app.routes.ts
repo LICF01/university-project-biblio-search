@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { FacultyComponent } from './features/faculty/faculty.component';
 import { SubjectComponent } from './features/subject/subject.component';
 import { ResourcesComponent } from './features/resources/resources.component';
+import { BibliographyComponent } from './features/bibliography/bibliography.component';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,10 @@ export const routes: Routes = [
     path: 'resources',
     title: 'Administrar Materiales',
     component: ResourcesComponent,
+  },
+  {
+    path: 'bibliography',
+    title: 'Administrar Bibliografías',
+    component: BibliographyComponent,
   },
 ];

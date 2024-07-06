@@ -1,19 +1,18 @@
 import { Component, computed, signal } from '@angular/core';
-import { Column, Resource, Row } from '../../../types';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ResourceService } from '../../services/resource/resource.service';
-
 import { TableComponent } from '../../components/table/table.component';
-import { ResourcesFormComponent } from './components/resources-form/resources-form.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ResourcesFormComponent } from '../resources/components/resources-form/resources-form.component';
+import { Bibliography, Column, Row } from '../../../types';
+import { BibliographyService } from '../../services/bibliography/bibliography.service';
 import { ResourceTypesService } from '../../services/resource-types/resource-types.service';
 
 @Component({
-  selector: 'app-resources',
+  selector: 'app-bibliography',
   standalone: true,
   imports: [
     TableComponent,
@@ -24,19 +23,25 @@ import { ResourceTypesService } from '../../services/resource-types/resource-typ
     ConfirmDialogModule,
     ResourcesFormComponent,
   ],
-  templateUrl: './resources.component.html',
-  styleUrl: './resources.component.css',
+  templateUrl: './bibliography.component.html',
+  styleUrl: './bibliography.component.css',
   providers: [MessageService, ConfirmationService],
 })
-export class ResourcesComponent {
-  data = signal<Resource[]>([]);
-  dataLabel: string = 'Materiales';
-  title: string = 'Administrar Materiales';
-  resource: Resource | undefined;
+export class BibliographyComponent {
+  data = signal<Bibliography[]>([]);
+  dataLabel: string = 'Bibliografía';
+  title: string = 'Administrar Bibliografías';
+  resource: Bibliography | undefined;
   displayForm: boolean = false;
-  formTitle: string = 'Agregar Material';
-  globalFilterFields = ['titulo'];
+  formTitle: string = 'Agregar Bibliografía';
+  globalFilterFields = [
+    'titulo_material',
+    'autor_material',
+    'nombre_materia',
+    'nombre_tipo_bibliografia',
+  ];
   resourceTypes: { [key: number]: string } = {};
+  bibliographyTypes: { [key: number]: string } = {};
 
   cols = computed<Column[]>(() => {
     const rows = this.data();
@@ -52,16 +57,18 @@ export class ResourcesComponent {
           switch (key) {
             case 'idmaterial':
               return 'Id';
-            case 'titulo':
-              return 'Titulo';
-            case 'autor':
+            case 'titulo_material':
+              return 'Material';
+            case 'autor_material':
               return 'Autor';
-            case 'tipomaterial':
-              return 'Id Tipo de Material';
-            case 'nombreTipoMaterial':
-              return 'Tipo de Material';
-            case 'url':
-              return 'URL';
+            case 'idmateria':
+              return 'Id Materia';
+            case 'nombre_materia':
+              return 'Materia';
+            case 'tipobibliografia':
+              return 'Id Tipo';
+            case 'nombre_tipo_bibliografia':
+              return 'Tipo';
             default:
               return '';
           }
@@ -77,24 +84,28 @@ export class ResourcesComponent {
   });
 
   constructor(
-    private resourceService: ResourceService,
+    private bibliographyService: BibliographyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private resourceTypesService: ResourceTypesService,
   ) {
-    this.fetchResources();
     this.resourceTypes = this.resourceTypesService.getResourceTypes();
+    this.bibliographyTypes = {
+      1: 'Principal',
+      2: 'Complementaria',
+    };
+    this.fetchBibliographies();
   }
 
-  fetchResources() {
-    this.resourceService.getAllResources().subscribe((res: any) => {
+  fetchBibliographies() {
+    this.bibliographyService.getAllBibliographies().subscribe((res: any) => {
       if (res.status === 'success') {
         const d = res.data.map((r: any) => {
           return {
             ...r,
-            nombreTipoMaterial:
-              this.resourceTypes[
-                r.tipomaterial as keyof typeof this.resourceTypes
+            nombre_tipo_bibliografia:
+              this.bibliographyTypes[
+                r.tipobibliografia as keyof typeof this.bibliographyTypes
               ],
           };
         });
@@ -102,15 +113,14 @@ export class ResourcesComponent {
       }
     });
   }
-
   openFormDialog(title?: string) {
     if (title) this.formTitle = title;
     this.displayForm = true;
   }
 
-  onResourceEdit(data: any) {
+  onBibliographyEdit(data: any) {
     this.resource = { ...data };
-    this.openFormDialog('Editar Material');
+    this.openFormDialog('Editar Bibliografía');
   }
 
   showSuccessMessage(action: string) {
@@ -141,17 +151,17 @@ export class ResourcesComponent {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Rechazar',
       accept: () => {
-        this.onDelete(data as Resource);
+        this.onDelete(data as Bibliography);
       },
       reject: () => {},
     });
   }
 
-  onCreate(data: Resource) {
-    this.resourceService.createResource(data).subscribe({
+  onCreate(data: Bibliography) {
+    this.bibliographyService.createBibliography(data).subscribe({
       next: () => {
         this.showSuccessMessage('created');
-        this.fetchResources();
+        this.fetchBibliographies();
       },
       error: () => {
         this.showErrorMessage('creating');
@@ -162,26 +172,28 @@ export class ResourcesComponent {
     });
   }
 
-  onUpdate(data: Resource) {
-    this.resourceService.updateResource(data, data.idmaterial).subscribe({
-      next: () => {
-        this.showSuccessMessage('updated');
-        this.fetchResources();
-      },
-      error: () => {
-        this.showErrorMessage('updating');
-      },
-      complete: () => {
-        this.displayForm = false;
-      },
-    });
+  onUpdate(data: Bibliography) {
+    this.bibliographyService
+      .updateBibliography(data, data.idmaterial)
+      .subscribe({
+        next: () => {
+          this.showSuccessMessage('updated');
+          this.fetchBibliographies();
+        },
+        error: () => {
+          this.showErrorMessage('updating');
+        },
+        complete: () => {
+          this.displayForm = false;
+        },
+      });
   }
 
-  onDelete(data: Resource) {
-    this.resourceService.deleteResource(data.idmaterial).subscribe({
+  onDelete(data: Bibliography) {
+    this.bibliographyService.deleteBibliography(data.idmaterial).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');
-        this.fetchResources();
+        this.fetchBibliographies();
       },
       error: () => {
         this.showErrorMessage('deleting');

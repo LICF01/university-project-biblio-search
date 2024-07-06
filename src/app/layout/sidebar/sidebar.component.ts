@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
       },
       { label: 'Materia', icon: 'pi pi-fw pi-book', url: '/subject' },
       { label: 'Material', icon: 'pi pi-fw pi-images', url: '/resources' },
+      { label: 'Bibliografía', icon: 'pi pi-fw pi-book', url: '/bibliography' },
     ];
   }
 }
