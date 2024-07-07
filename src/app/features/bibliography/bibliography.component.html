@@ -8,4 +8,14 @@
   (onRowDelete)="showConfirmDialog($event)"
   (onRowAdd)="openFormDialog()"
 />
+<app-bibliography-form
+  [dialogTitle]="formTitle"
+  [(display)]="displayForm"
+  (onUpdate)="onUpdate($event)"
+  (onCreate)="onCreate($event)"
+  [data]="bibliography"
+  [resources]="resources()"
+  [subjects]="subjects()"
+  [bibliographyTypes]="bibliographyTypes"
+/>
 <p-confirmDialog />

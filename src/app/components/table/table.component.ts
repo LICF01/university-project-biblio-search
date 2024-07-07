@@ -22,11 +22,7 @@ export class TableComponent {
   onRowDelete = output<Row>();
   onRowAdd = output();
 
-  constructor() {
-    effect(() => {
-      console.log(this.cols());
-    });
-  }
+  constructor() {}
 
   editRow(row: Row) {
     this.onEditRow.emit(row);

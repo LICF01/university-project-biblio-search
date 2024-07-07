@@ -18,21 +18,36 @@ export class BibliographyService {
     });
   }
 
-  createBibliography(data: any): Observable<Bibliography> {
-    return this.apiService.post(this.url, data, {
-      responseType: 'json',
-    });
+  createBibliography(data: {
+    material: string;
+    materia: string;
+    type: number;
+  }): Observable<Bibliography> {
+    return this.apiService.post(
+      `${this.url}/${data.materia}/${data.material}`,
+      data,
+      {
+        responseType: 'json',
+      },
+    );
   }
 
   updateBibliography(data: any, id: number): Observable<Bibliography> {
-    return this.apiService.patch(this.url + `/${id}`, data, {
-      responseType: 'json',
-    });
+    return this.apiService.patch(
+      `${this.url}/${data.materia}/${data.material}`,
+      data,
+      {
+        responseType: 'json',
+      },
+    );
   }
 
-  deleteBibliography(id: number): Observable<Bibliography> {
-    return this.apiService.delete(this.url + `/${id}`, {
-      responseType: 'json',
-    });
+  deleteBibliography(data: any): Observable<Bibliography> {
+    return this.apiService.delete(
+      `${this.url}/${data.idmateria}/${data.idmaterial}`,
+      {
+        responseType: 'json',
+      },
+    );
   }
 }

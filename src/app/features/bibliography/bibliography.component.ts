@@ -7,9 +7,12 @@ import { TableComponent } from '../../components/table/table.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ResourcesFormComponent } from '../resources/components/resources-form/resources-form.component';
-import { Bibliography, Column, Row } from '../../../types';
+import { Bibliography, Column, Resource, Row, Subject } from '../../../types';
 import { BibliographyService } from '../../services/bibliography/bibliography.service';
 import { ResourceTypesService } from '../../services/resource-types/resource-types.service';
+import { BibliographyFormComponent } from './components/bibliography-form/bibliography-form.component';
+import { ResourceService } from '../../services/resource/resource.service';
+import { SubjectService } from '../../services/subject/subject.service';
 
 @Component({
   selector: 'app-bibliography',
@@ -22,6 +25,7 @@ import { ResourceTypesService } from '../../services/resource-types/resource-typ
     ToastModule,
     ConfirmDialogModule,
     ResourcesFormComponent,
+    BibliographyFormComponent,
   ],
   templateUrl: './bibliography.component.html',
   styleUrl: './bibliography.component.css',
@@ -31,7 +35,7 @@ export class BibliographyComponent {
   data = signal<Bibliography[]>([]);
   dataLabel: string = 'Bibliografía';
   title: string = 'Administrar Bibliografías';
-  resource: Bibliography | undefined;
+  bibliography: Bibliography | undefined;
   displayForm: boolean = false;
   formTitle: string = 'Agregar Bibliografía';
   globalFilterFields = [
@@ -42,6 +46,8 @@ export class BibliographyComponent {
   ];
   resourceTypes: { [key: number]: string } = {};
   bibliographyTypes: { [key: number]: string } = {};
+  subjects = signal<Subject[]>([]);
+  resources = signal<Resource[]>([]);
 
   cols = computed<Column[]>(() => {
     const rows = this.data();
@@ -88,6 +94,8 @@ export class BibliographyComponent {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private resourceTypesService: ResourceTypesService,
+    private resourceService: ResourceService,
+    private subjectService: SubjectService,
   ) {
     this.resourceTypes = this.resourceTypesService.getResourceTypes();
     this.bibliographyTypes = {
@@ -95,6 +103,8 @@ export class BibliographyComponent {
       2: 'Complementaria',
     };
     this.fetchBibliographies();
+    this.fetchSubjects();
+    this.fetchResources();
   }
 
   fetchBibliographies() {
@@ -113,13 +123,30 @@ export class BibliographyComponent {
       }
     });
   }
+
+  fetchSubjects() {
+    this.subjectService.getAllSubjects().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.subjects.set(res.data);
+      }
+    });
+  }
+
+  fetchResources() {
+    this.resourceService.getAllResources().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.resources.set(res.data);
+      }
+    });
+  }
+
   openFormDialog(title?: string) {
     if (title) this.formTitle = title;
     this.displayForm = true;
   }
 
   onBibliographyEdit(data: any) {
-    this.resource = { ...data };
+    this.bibliography = { ...data };
     this.openFormDialog('Editar Bibliografía');
   }
 
@@ -157,7 +184,7 @@ export class BibliographyComponent {
     });
   }
 
-  onCreate(data: Bibliography) {
+  onCreate(data: { material: string; materia: string; type: number }) {
     this.bibliographyService.createBibliography(data).subscribe({
       next: () => {
         this.showSuccessMessage('created');
@@ -190,7 +217,7 @@ export class BibliographyComponent {
   }
 
   onDelete(data: Bibliography) {
-    this.bibliographyService.deleteBibliography(data.idmaterial).subscribe({
+    this.bibliographyService.deleteBibliography(data as any).subscribe({
       next: () => {
         this.showSuccessMessage('deleted');
         this.fetchBibliographies();

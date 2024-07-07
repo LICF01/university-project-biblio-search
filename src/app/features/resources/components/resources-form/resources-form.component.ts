@@ -74,7 +74,6 @@ export class ResourcesFormComponent {
         type: formValues.material.value,
       });
     } else {
-      console.log(formValues);
       this.onCreate.emit({
         title: formValues.titulo,
         author: formValues.autor,
