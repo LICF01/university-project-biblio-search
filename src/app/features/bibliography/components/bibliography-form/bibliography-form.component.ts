@@ -65,16 +65,18 @@ export class BibliographyFormComponent {
     const data = this.data();
     const values = form.value;
 
-    const dataToSave = {
-      material: values.material,
-      materia: values.materia,
-      type: Number(values.tipoBibliografia),
-    };
-
     if (data) {
-      this.onUpdate.emit(dataToSave);
+      this.onUpdate.emit({
+        material: data.idmaterial,
+        materia: data.idmateria,
+        type: Number(values.tipoBibliografia),
+      });
     } else {
-      this.onCreate.emit(dataToSave);
+      this.onCreate.emit({
+        material: values.material,
+        materia: values.materia,
+        type: Number(values.tipoBibliografia),
+      });
     }
   }
 

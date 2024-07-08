@@ -6,32 +6,34 @@
   (onHide)="closeDialog(form)"
 >
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-    <div class="form-item">
-      <label for="materia">Materia</label>
-      <p-dropdown
-        name="materia"
-        [(ngModel)]="selectedSubject"
-        [options]="subjects()"
-        optionLabel="nombre_materia"
-        optionValue="idmateria"
-        datakey="idmateria"
-        placeholder="Seleccione una Materia"
-        appendTo="body"
-      />
-    </div>
-    <div class="form-item">
-      <label for="material">Material</label>
-      <p-dropdown
-        name="material"
-        [(ngModel)]="selectedResource"
-        [options]="resources()"
-        optionLabel="titulo"
-        optionValue="idmaterial"
-        datakey="idmaterial"
-        placeholder="Seleccione un material"
-        appendTo="body"
-      />
-    </div>
+    @if (!data()) {
+      <div class="form-item">
+        <label for="materia">Materia</label>
+        <p-dropdown
+          name="materia"
+          [(ngModel)]="selectedSubject"
+          [options]="subjects()"
+          optionLabel="nombre_materia"
+          optionValue="idmateria"
+          datakey="idmateria"
+          placeholder="Seleccione una Materia"
+          appendTo="body"
+        />
+      </div>
+      <div class="form-item">
+        <label for="material">Material</label>
+        <p-dropdown
+          name="material"
+          [(ngModel)]="selectedResource"
+          [options]="resources()"
+          optionLabel="titulo"
+          optionValue="idmaterial"
+          datakey="idmaterial"
+          placeholder="Seleccione un material"
+          appendTo="body"
+        />
+      </div>
+    }
     <div class="form-item">
       <label for="tipoBibliografia">Tipo de Material</label>
       <p-dropdown
