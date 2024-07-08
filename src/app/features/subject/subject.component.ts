@@ -121,7 +121,7 @@ export class SubjectComponent {
         this.fetchSubjects();
       },
       error: () => {
-        this.showErrorMessage('creating');
+        this.showErrorMessage();
       },
       complete: () => {
         this.displayForm = false;
@@ -136,7 +136,7 @@ export class SubjectComponent {
         this.fetchSubjects();
       },
       error: () => {
-        this.showErrorMessage('updating');
+        this.showErrorMessage();
       },
       complete: () => {
         this.displayForm = false;
@@ -150,8 +150,14 @@ export class SubjectComponent {
         this.showSuccessMessage('deleted');
         this.fetchSubjects();
       },
-      error: () => {
-        this.showErrorMessage('deleting');
+      error: (err: any) => {
+        if (err.status === 409) {
+          this.showErrorMessage(
+            'No se puede eliminar la materia porque tiene registros asociados',
+          );
+        } else if (err.status === 400) {
+          this.showErrorMessage('La materia no puede ser eliminada');
+        }
       },
     });
   }
@@ -178,11 +184,11 @@ export class SubjectComponent {
     });
   }
 
-  showErrorMessage(action: string) {
+  showErrorMessage(message: string = 'Ha ocurrido un error') {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      detail: `An error occurred while ${action} ${this.dataLabel}`,
+      detail: message,
     });
   }
 }

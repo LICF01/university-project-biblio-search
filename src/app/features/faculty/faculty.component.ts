@@ -102,12 +102,11 @@ export class FacultyComponent {
     });
   }
 
-  showErrorMessage(action: string) {
+  showErrorMessage(message: string = 'Ha ocurrido un error') {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      // detail: `An error occurred while ${action} ${this.dataLabel}`,
-      detail: `Ha ocurrido un error durante la operación`,
+      detail: message,
     });
   }
 
@@ -134,7 +133,7 @@ export class FacultyComponent {
         this.fetchFaculties();
       },
       error: () => {
-        this.showErrorMessage('creating');
+        this.showErrorMessage();
       },
       complete: () => {
         this.displayForm = false;
@@ -149,7 +148,7 @@ export class FacultyComponent {
         this.fetchFaculties();
       },
       error: () => {
-        this.showErrorMessage('updating');
+        this.showErrorMessage();
       },
       complete: () => {
         this.displayForm = false;
@@ -163,8 +162,14 @@ export class FacultyComponent {
         this.showSuccessMessage('deleted');
         this.fetchFaculties();
       },
-      error: () => {
-        this.showErrorMessage('deleting');
+      error: (err: any) => {
+        if (err.status === 409) {
+          this.showErrorMessage(
+            'No se puede eliminar la facultad porque tiene registros asociados',
+          );
+        } else if (err.status === 400) {
+          this.showErrorMessage('La facultad no puede ser eliminada');
+        }
       },
     });
   }

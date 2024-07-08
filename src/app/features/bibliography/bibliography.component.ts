@@ -140,8 +140,8 @@ export class BibliographyComponent {
     });
   }
 
-  openFormDialog(title?: string) {
-    if (title) this.formTitle = title;
+  openFormDialog(title: string = 'Agregar Bibliografía') {
+    this.formTitle = title;
     this.displayForm = true;
   }
 
@@ -159,12 +159,11 @@ export class BibliographyComponent {
     });
   }
 
-  showErrorMessage(action: string) {
+  showErrorMessage(message: string = 'Ha ocurrido un error') {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      // detail: `An error occurred while ${action} ${this.dataLabel}`,
-      detail: `Ha ocurrido un error durante la operación`,
+      detail: message,
     });
   }
 
@@ -191,7 +190,7 @@ export class BibliographyComponent {
         this.fetchBibliographies();
       },
       error: () => {
-        this.showErrorMessage('creating');
+        this.showErrorMessage();
       },
       complete: () => {
         this.displayForm = false;
@@ -208,7 +207,7 @@ export class BibliographyComponent {
           this.fetchBibliographies();
         },
         error: () => {
-          this.showErrorMessage('updating');
+          this.showErrorMessage();
         },
         complete: () => {
           this.displayForm = false;
@@ -222,8 +221,14 @@ export class BibliographyComponent {
         this.showSuccessMessage('deleted');
         this.fetchBibliographies();
       },
-      error: () => {
-        this.showErrorMessage('deleting');
+      error: (err: any) => {
+        if (err.status === 409) {
+          this.showErrorMessage(
+            'No se puede eliminar la bibliografía porque tiene registros asociados',
+          );
+        } else if (err.status === 400) {
+          this.showErrorMessage('La bibliografía no puede ser eliminada');
+        }
       },
     });
   }
