@@ -95,8 +95,8 @@ export class SubjectComponent {
     });
   }
 
-  openFormDialog(title?: string) {
-    if (title) this.formTitle = title;
+  openFormDialog(title: string = 'Agregar Materia') {
+    this.formTitle = title;
     this.displayForm = true;
   }
 

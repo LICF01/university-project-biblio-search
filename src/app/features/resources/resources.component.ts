@@ -103,8 +103,8 @@ export class ResourcesComponent {
     });
   }
 
-  openFormDialog(title?: string) {
-    if (title) this.formTitle = title;
+  openFormDialog(title: string = 'Agregar Material') {
+    this.formTitle = title;
     this.displayForm = true;
   }
 
