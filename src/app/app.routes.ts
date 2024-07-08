@@ -3,12 +3,18 @@ import { FacultyComponent } from './features/faculty/faculty.component';
 import { SubjectComponent } from './features/subject/subject.component';
 import { ResourcesComponent } from './features/resources/resources.component';
 import { BibliographyComponent } from './features/bibliography/bibliography.component';
+import { PrincipalComponent } from './features/principal/principal.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/faculty',
+    redirectTo: '/principal',
     pathMatch: 'full',
+  },
+  {
+    path: 'principal',
+    title: 'Pantalla Principal',
+    component: PrincipalComponent,
   },
   {
     path: 'faculty',

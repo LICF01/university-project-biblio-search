@@ -1,0 +1,40 @@
+.welcome-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #add8e6; /* Color celeste */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay semitransparente */
+}
+
+.centered-content {
+  text-align: center;
+  color: white; /* Color del texto */
+}
+
+.btn-start {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #f32805; /* Color azul del botón */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.btn-start:hover {
+  background-color: #670ae0; /* Color azul más oscuro al pasar el mouse */
+}
